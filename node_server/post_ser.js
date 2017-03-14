@@ -27,9 +27,12 @@ router.get('/get/:page/:name', (req, res) => {
 })
 
 router.post('/login', (req, res) => {
-  if(req.body.name === 'Alice') {
+  if(req.body.accesstoken === '30589745-03b5-4a53-85c7-df327fe17c48') {
     res.json({code: '200', data: [1,2,3,4,5], msg: 'welcome, Alice login success.'})
   } else {
+    // res.status(401).send('accesstoken error!');
+    res.status(500);
+    // res.render('error', { error: err })
     res.json({code: '1001', data: [], msg: 'sorry, you need to use to get pars.'})
   }
 })
