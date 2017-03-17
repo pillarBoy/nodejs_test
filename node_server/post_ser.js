@@ -4,7 +4,7 @@ var bodyParser = require('body-parser')
 
 // 解决本地调试 跨域请求
 server.all('*', function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "http://liangwz-szzbd:8086");
+  res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "X-Requested-With,Content-Type,Accept");
   res.header("Access-Control-Allow-Methods","PUT,POST,GET,DELETE,OPTIONS");
   res.header("X-Powered-By",' 3.2.1');
@@ -12,7 +12,7 @@ server.all('*', function(req, res, next) {
   next();
 });
 
-server.use(bodyParser.json()); // 支持json 格式
+// server.use(bodyParser.json()); // 支持json 格式
 server.use(bodyParser.urlencoded({ extended: true})) // 支持默认 x-www-form-urlencoded
 
 var port = process.env.PORT || 8081
@@ -60,4 +60,4 @@ server.use('/home', router)
 
 server.listen(port)
 
-console.log(port);
+console.log(`http://localhost:${port}`);
