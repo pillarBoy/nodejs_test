@@ -4,7 +4,7 @@ var bodyParser = require('body-parser')
 
 // 解决本地调试 跨域请求
 server.all('*', function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Origin", "http://liangwz-szzbd:8086");
   res.header("Access-Control-Allow-Headers", "X-Requested-With,Content-Type,Accept");
   res.header("Access-Control-Allow-Methods","PUT,POST,GET,DELETE,OPTIONS");
   res.header("X-Powered-By",' 3.2.1');
@@ -27,16 +27,13 @@ router.get('/get/:page/:name', (req, res) => {
 })
 
 router.post('/login', (req, res) => {
-  console.log(req.get('Content-Type'))
-  console.log(req.query)
-  console.log(req.body)
-  if(req.body.accesstoken === '30589745-03b5-4a53-85c7-df327fe17c48') {
-    res.status(200).json({code: '200', data: [1,2,3,4,5], msg: 'welcome, Alice login success.', success: true})
-  } else {
-    res.json({code: '1001', data: [], msg: 'sorry, you need to use to get pars.'})
-  }
+  res.status(200).json({name: req.body.name, msg: 'test success.'})
+  // if(req.body.accesstoken === '30589745-03b5-4a53-85c7-df327fe17c48') {
+  //   res.status(200).json({code: '200', data: [1,2,3,4,5], msg: 'welcome, Alice login success.', success: true})
+  // } else {
+  //   res.status(1001).json({code: '1001', data: [], msg: 'sorry, you need to use to get pars.'})
+  // }
 })
-
 
 router.post('/wklist', (req, res) => {
   var {page, projectCode} = req.body
@@ -59,7 +56,7 @@ router.post('/wklist', (req, res) => {
   }
 })
 
-server.use('/rooter', router)
+server.use('/home', router)
 
 server.listen(port)
 
