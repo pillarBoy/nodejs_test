@@ -2,8 +2,8 @@ var express = require('express')
 var server = express()
 var bodyParser = require('body-parser')
 
-// server.use(bodyParser.json()); // 支持json 格式
-server.use(bodyParser.urlencoded({ extended: true})) // 支持默认 x-www-form-urlencoded
+server.use(bodyParser.json()); // 支持json 格式
+// server.use(bodyParser.urlencoded({ extended: true})) // 支持默认 x-www-form-urlencoded
 
 server.all('*', function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
@@ -11,7 +11,7 @@ server.all('*', function(req, res, next) {
   res.header("Access-Control-Allow-Methods","PUT,POST,GET,DELETE,OPTIONS");
   res.header("X-Powered-By",' 3.2.1');
   res.header("Access-Control-Allow-Credentials", true); // 允许发送cookie 认证
-  res.header("Content-Type", "application/x-www-form-urlencoded; charset=utf-8");
+  res.header("Content-Type", "application/json; charset=utf-8");
   next();
 });
 
@@ -40,13 +40,20 @@ router.get('/:name', (request, response) => {
 // post 请求
 router.post('/say', (request, response) => {
   // 服务端接收到客户的的请求参数全部放在request 对象中，
-  var json = request.body
+  var {names} = request.body
   // 接收到一个请求时，在git bash把请求的参数log出来
-  console.log(json)
-  // 给客户端，需要的响应 200 表示连接成功
-  response.status(200)
-  // 给客户的响应对应的数据 （json 表示以json格式发送数据）
-  response.json({name: json, say: function () {alert('I just want to talk to you hello.')}, msg: 'your post request is success.'})
+  new Promise((resolve, reject) => {
+    // 模拟数据等待
+    setTimeout(() => {
+      // 给客户端，需要的响应 200 表示连接成功
+      response.status(200)
+      // 给客户的响应对应的数据 （json 表示以json格式发送数据）
+      response.json({name: names, say: function () {alert('I just want to talk to you hello.')}, msg: 'your post request is success.'})
+      resolve()
+    }, 1000)
+  })
+
+
 })
 
 // 请求根目录

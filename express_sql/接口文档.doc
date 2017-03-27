@@ -1,0 +1,112 @@
+1.通过工单id查询 method GET
+  接口：http://localhost:8081/home/getbyid/
+  参数：id  // string 工单id
+  exp: http://localhost:8081/home/getbyid/?id=123456
+  response:
+  {
+    "code": 200,
+    "data": [
+      {
+        "did": 8,
+        "name": "【蒸饺】",
+        "price": 12,
+        "img_lg": "p6611-l.jpg",
+        "material": "鸡蛋、豆角酱肉馅、西红柿鸡蛋馅、猪生抽、生抽、海鲜酱油、糖、盐",
+        "detail": "昨天突然好想吃蒸饺，但是貌似没听过北京哪家蒸饺好吃，于是决定自己做啦，重要的事最近爱上做饭，能与大家分享美食乐趣也让我又燃起了烹饪的热情。想必最好吃的东西还是自己家的家常便饭！面粉300克，开水100ml左右（这个量可以在和面的时候自己调节下，蒸饺一定是烫面的）鸡蛋一个，我是用面包机和的面团，准备其他馅时一直在醒面（半小时内）。豆角酱肉馅：做法见我的豆角酱肉卤菜谱"
+      }
+    ],
+    "msg": "查询成功"
+  }
+
+2.通过关键字搜索工单  method GET
+  接口：http://localhost:8081/home/getbykw/
+  参数：kw  // string 关键字
+  exp: http://localhost:8081/home/getbykw/?kw=油
+  response:
+  {
+    "code": 200,
+    "data": [
+      {
+        "did": 4,
+        "name": "【口袋饼】",
+        "price": 6.5,
+        "img_sm": "p7818.jpg",
+        "material": "面粉、黄瓜、香肠、热水、土豆、盐、醋、生抽、油。"
+      }
+    ],
+    "msg": "success"
+  }
+
+3.通过页数查询  method GET
+  接口：http://localhost:8081/home/getbypage/
+  参数：start  // string 查询页码 （必须）
+        count  // string 返回结果最大条数 (可以不传，默认5条)
+  exp: http://localhost:8081/home/getbypage/?start=1&count=2
+  response:
+  {
+    "code": 200,
+    "data": [
+      {
+        "did": 1,
+        "name": "【酸甜开胃虾】",
+        "price": 36,
+        "img_lg": "p0281-l.jpg",
+        "material": "明虾、番茄酱、白糖、白醋、葱、姜、淀粉",
+        "detail": "话说有两个地方是我挪不动脚的，一个是图书馆，另外一个便是菜市场！ 每周有七天，留给自己的时间却很少。既要带儿子去上早教课，又要陪女儿上兴趣班，还要留一个半天带孩子们泡图书馆！ 有时真的觉得妈妈是这个世界上最伟大的职业，累，并快乐着！ 这个时节正是各类果蔬大量上市的时候，拖着买菜专用的小拉车，徜徉在人声鼎沸的菜市场，从海鲜区、肉类区再慢慢逛到我最喜爱的果蔬区，感受季节的变换带给人们餐桌上的喜悦………… "
+      },
+      {
+        "did": 2,
+        "name": "【桂香紫薯山药卷】",
+        "price": 16.5,
+        "img_lg": "p2679-l.jpg",
+        "material": "切片吐司、紫薯、铁棍山药、糖桂花、炼乳",
+        "detail": "今天用紫薯，山药和吐司来做一款漂亮又健康的点心，做为早餐或者夜宵都是很好的选择哦！ 做法其实很简单，只要将各种食材层叠卷起来就行。提前煮好山药和紫薯，那么只要几分钟就能完成。 但就是这么一点小小的改变，就能立刻让原本平淡无奇的吐司变身抢手货哟~ 生活总是这样，时不时的有一些小惊喜，才会更加精彩不是嘛~"
+      }
+    ],
+    "count": 8,
+    "msg": "get data success."
+  }
+
+4.添加订单 method POST
+  接口：http://localhost:8081/home/orderadd
+  参数：user_name  // string   用户名称
+        sex        // string  用户性别（1: 女，2: 男）
+        phone      // string  联系电话 (前端校验)
+        addr       // string  收货地址
+        did        // string  用户id (1~8 表示订单订单的菜单编号) 目前只有8个菜~hehe
+  exp: http://localhost:8081/home/orderadd
+  参数：{
+    user_name: 'Allice',
+    sex: 1,
+    phone: 13888888888,
+    addr: '广东深圳市宝安区宝源路153号四栋506'
+    did: 151
+  }
+  response:
+  {
+    "code": 200,
+    "msg": "增加订单成功",
+    "order_id": "114"
+  }
+
+5.通过电话号码查询订单详情
+  接口：http://localhost:8081/home/order_getbyphone
+  参数：phone  // string   电话号码
+  exp: http://localhost:8081/home/order_getbyphone
+    {
+      phone: 13858855888
+    }
+  response:
+  {
+    "code": 200,
+    "msg": "查询成功",
+    "data": [
+      {
+        "oid": 12,
+        "user_name": "test",
+        "order_time": "1490606291886",
+        "img_sm": "p8489.jpg",
+        "did": 3
+      }
+    ]
+  }
